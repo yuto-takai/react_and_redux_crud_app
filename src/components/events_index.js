@@ -18,7 +18,7 @@ import { increment, decrement } from '../actions'
 // const App = () => ( <Counter/> )
 
  
-class App extends Component {
+class EventsIndex extends Component {
 // constructorでやってることはReducerでやることになるので不要
   render() {
     const props = this.props
@@ -46,6 +46,6 @@ const mapDispatchToProps = dispatch => ({
 // 省略した書き方
 // const mapDispatchToProps = ({ increment, decrement })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(EventsIndex)
 
  
