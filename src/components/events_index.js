@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { readEvents } from '../actions'
 import _ from 'lodash'
+import { Link } from 'react-router-dom'
 
 // class App extends Component {
 //   render() {
@@ -39,19 +40,21 @@ class EventsIndex extends Component {
 // constructorでやってることはReducerでやることになるので不要
   render() {
     return( 
-      // 今回、tableはひとつだけになるので、React.Flagmentは不要
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Body</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.renderEvents()}
-        </tbody>
-      </table>
+      <React.Fragment>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Body</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.renderEvents()}
+          </tbody>
+        </table>
+        <Link to='events/new'>New Event</Link>
+      </React.Fragment>
      )
   }
 }
