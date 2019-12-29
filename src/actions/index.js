@@ -1,10 +1,13 @@
+import axios from 'axios'
 // ActionのTypeはReducerでも使うので定数にまとめる
 export const READ_EVENTS = 'READ_EVENTS'
 
+const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1'
+const QUERYSTRING = '?token=token123'
+
 // Action Creator
-export const readEvents = () => ({
-  // Action
-  // returnを省略
-  type: READ_EVENTS
-})
+export const readEvents = () => async dispatch => {
+  const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`)
+  dispatch({ type: READ_EVENTS, response })
+}
 

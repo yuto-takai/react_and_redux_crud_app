@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // reduxから提供されている、storeを作成するための関数
-import { createStore } from 'redux';
+// applyMiddlewareは、redux-thunkのようなMiddlewareを適応するための関数
+import { createStore, applyMiddleware } from 'redux';
 // 作成したstoreを全コンポーネントにわたすための特殊なコンポーネント
 import { Provider } from 'react-redux';
 import reducer from './reducers'
@@ -9,8 +10,10 @@ import './index.css';
 import EventsIndex from './components/events_index';
 import * as serviceWorker from './serviceWorker';
 
+import thunk from 'redux-thunk'
+
 // すべてのstateがこのstoreに集約される
-const store = createStore(reducer)
+const store = createStore(reducer, applyMiddleware(thunk))
 
 // 全コンポーネントの元であるAppをProviderで包んで、store属性に、上で作成したstoreを渡すことで、
 // 全コンポーネントでstoreを扱うことができる

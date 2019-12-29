@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { readEvents } from '../actions'
+import _ from 'lodash'
 
 // class App extends Component {
 //   render() {
@@ -19,30 +20,47 @@ import { readEvents } from '../actions'
 
  
 class EventsIndex extends Component {
-  componentDisMount() {
+  componentDidMount() {
     // componentがマウントされたタイミングでreadEventsでイベントを全県取得してきたい
+    // 具体的な処理はActionsに書く
     this.props.readEvents()
+  }
+
+  renderEvents() {
+    return _.map(this.props.events, event => (
+      // 一意のkeyを渡す必要
+      <tr key={event.id}>
+        <td>{event.id}</td>
+        <td>{event.title}</td>
+        <td>{event.body}</td>
+      </tr>
+    ))
   }
 // constructorでやってることはReducerでやることになるので不要
   render() {
-    const props = this.props
     return( 
-      <React.Fragment>
-        <div>value: { props.value }</div>
-        <button onClick={ props.increment }>+1</button>
-        <button onClick={ props.decrement }>-1</button>
-      </React.Fragment>
+      // 今回、tableはひとつだけになるので、React.Flagmentは不要
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Body</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderEvents()}
+        </tbody>
+      </table>
      )
   }
 }
 
 // stateをpropsとしてmappingする
-const mapStateToProps = state => ({ })
+// state.eventsには、reducerで整形した結果のevent一覧が返ってきている
+const mapStateToProps = state => ({ events: state.events })
 
-// incrementまたはdecrementをkeyにi
-// ncrement関数またはdecrement関数をpropsとして持つ
 const mapDispatchToProps = dispatch => ({
-  // incrementがkeyで、increment関数が引数として与えられているdispatch関数
   readEvents: () => dispatch(readEvents()),
 })
 
