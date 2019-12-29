@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { increment, decrement } from '../actions'
+import { readEvents } from '../actions'
 
 // class App extends Component {
 //   render() {
@@ -19,6 +19,10 @@ import { increment, decrement } from '../actions'
 
  
 class EventsIndex extends Component {
+  componentDisMount() {
+    // componentがマウントされたタイミングでreadEventsでイベントを全県取得してきたい
+    this.props.readEvents()
+  }
 // constructorでやってることはReducerでやることになるので不要
   render() {
     const props = this.props
@@ -33,18 +37,17 @@ class EventsIndex extends Component {
 }
 
 // stateをpropsとしてmappingする
-const mapStateToProps = state => ({ value: state.count.value })
+const mapStateToProps = state => ({ })
 
 // incrementまたはdecrementをkeyにi
 // ncrement関数またはdecrement関数をpropsとして持つ
 const mapDispatchToProps = dispatch => ({
   // incrementがkeyで、increment関数が引数として与えられているdispatch関数
-  increment: () => dispatch(increment()),
-  decrement: () => dispatch(decrement()),
+  readEvents: () => dispatch(readEvents()),
 })
 
 // 省略した書き方
-// const mapDispatchToProps = ({ increment, decrement })
+// const mapDispatchToProps = ({ readEvents })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventsIndex)
 

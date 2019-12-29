@@ -1,18 +1,10 @@
 // ActionのTypeはReducerでも使うので定数にまとめる
-export const INCREMENT = 'INCREMENT'
-export const DECREMENT = 'DECREMENt'
+export const READ_EVENTS = 'READ_EVENTS'
 
 // Action Creator
-export const increment = () => {
-  return {
-    // Action
-    type: INCREMENT
-  }
-}
-
-// Action Creator
-export const decrement = () => ({
+export const readEvents = () => ({
   // Action
-  type: DECREMENT
+  // returnを省略
+  type: READ_EVENTS
 })
 
