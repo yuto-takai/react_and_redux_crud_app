@@ -15,7 +15,7 @@ const store = createStore(reducer)
 // 全コンポーネントの元であるAppをProviderで包んで、store属性に、上で作成したstoreを渡すことで、
 // 全コンポーネントでstoreを扱うことができる
 ReactDOM.render(
-  <Provider store='store'>
+  <Provider store={store}>
     <App />
   </Provider>,
   document.getElementById('root')
