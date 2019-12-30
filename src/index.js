@@ -16,6 +16,8 @@ import thunk from 'redux-thunk'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
 // 開発環境上でデバッグするためのツールを扱う場合は、
 // composeWithDevtoolsでapplyMiddlewareをラップする￥
 const enhancer = process.env.NODE_ENV === 'development' ?
@@ -26,17 +28,19 @@ const store = createStore(reducer, enhancer)
 // 全コンポーネントの元であるAppをProviderで包んで、store属性に、上で作成したstoreを渡すことで、
 // 全コンポーネントでstoreを扱うことができる
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <Switch>
-        {/* exactはpath指定に完全にマッチする時につける */}
-        <Route path='/events/new' component={EventsNew}/>
-        <Route path='/events/:id' component={EventsShow}/>
-        <Route exact path='/' component={EventsIndex}/>
-        <Route exact path='/events' component={EventsIndex}/>
-      </Switch>
-    </BrowserRouter>
-  </Provider>,
+  <MuiThemeProvider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          {/* exactはpath指定に完全にマッチする時につける */}
+          <Route path='/events/new' component={EventsNew}/>
+          <Route path='/events/:id' component={EventsShow}/>
+          <Route exact path='/' component={EventsIndex}/>
+          <Route exact path='/events' component={EventsIndex}/>
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('root')
 );
 
