@@ -1,5 +1,5 @@
 // Actionのタイプを取り込む
-import { READ_EVENTS, DELETE_EVENT, READ_EVENT } from '../actions'
+import { READ_EVENTS, DELETE_EVENT, READ_EVENT, UPDATE_EVENT, CREATE_EVENT } from '../actions'
 
 import _ from 'lodash'
 
@@ -14,7 +14,9 @@ export default (events = {}, action) => {
       // lodashを使い、idがキーのオブジェクトの配列を作る
 
       return _.mapKeys(action.response.data, 'id')
+    case CREATE_EVENT: 
     case READ_EVENT:
+    case UPDATE_EVENT:
       const data = action.response.data
       return { ...events, [data.id]: data }
     case DELETE_EVENT:
