@@ -13,6 +13,11 @@ class EventsShow extends Component {
     this.onDeleteClick = this.onDeleteClick.bind(this)
   }
 
+  componentDidMount() {
+    const { id } = this.props.match.params
+    if (id) this.props.getEvent(id)
+  }
+
   renderField(field) {
     // touchedはフォームにタッチしたかどうかなどを見ているreduxFormが持ってる属性など
     const { input, label, type, meta: { touched, error } } = field
@@ -59,11 +64,16 @@ const validate = values => {
   return errors
 }
 
-// 例のごとくpostEventというアクションをpropsとして使えるようにする
-const mapDispatchToProps = ({ deleteEvent })
+const mapStateToProps = (state, ownProps) => {
+  const event = state.events[ownProps.match.params.id]
+  return { initialValues: event, state }
+}
 
-export default connect(null, mapDispatchToProps)(
-  reduxForm({ validate, form: 'eventShowForm' })(EventsShow)
+// 例のごとくpostEventというアクションをpropsとして使えるようにする
+const mapDispatchToProps = ({ deleteEvent, getEvent })
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  reduxForm({ validate, form: 'eventShowForm', enableReinitialize: true })(EventsShow)
 )
 
  

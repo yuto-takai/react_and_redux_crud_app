@@ -68,6 +68,7 @@ class EventsIndex extends Component {
 const mapStateToProps = state => ({ events: state.events })
 
 const mapDispatchToProps = dispatch => ({
+  // こうするとthis.props.readEventsとしてアクションが使えるようになる
   readEvents: () => dispatch(readEvents()),
 })
 
