@@ -1,5 +1,5 @@
 // Actionのタイプを取り込む
-import { READ_EVENTS } from '../actions'
+import { READ_EVENTS, DELETE_EVENT } from '../actions'
 
 import _ from 'lodash'
 
@@ -14,6 +14,9 @@ export default (events = {}, action) => {
       // lodashを使い、idがキーのオブジェクトの配列を作る
 
       return _.mapKeys(action.response.data, 'id')
+    case DELETE_EVENT:
+      delete events[action.id] // ここでイベント情報を削除までしている
+      return { ...events } // スプレッド演算子で、アップデートされたオブジェクトを返す
     default:
       return events
   } 
